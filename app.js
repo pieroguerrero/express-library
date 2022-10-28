@@ -10,6 +10,20 @@ const usersRouter = require("./routes/users");
 
 const app = express();
 
+// Set up mongoose connection
+const mongoose = require("mongoose");
+const mongoDB =
+  "mongodb+srv://library:sa1DgfsfbfCANa2s@cluster0.lnchkji.mongodb.net/?retryWrites=true&w=majority";
+
+mongoose
+  .connect(mongoDB)
+  .then((response) => {
+    const db = mongoose.connection;
+  })
+  .catch((err) => {
+    console.error.bind(console, "MongoDB connection error:");
+  });
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
