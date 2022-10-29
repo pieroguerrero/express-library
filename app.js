@@ -1,17 +1,19 @@
 /* eslint-disable no-unused-vars */
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
+import createError from "http-errors";
+import express from "express";
+import { join } from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+import indexRouter from "./routes/index.js";
+import usersRouter from "./routes/users.js";
 
-const app = express();
+export const app = express();
+
+const __dirname = new URL(".", import.meta.url).pathname;
 
 // Set up mongoose connection
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const mongoDB =
   "mongodb+srv://library:sa1DgfsfbfCANa2s@cluster0.lnchkji.mongodb.net/?retryWrites=true&w=majority";
 
@@ -25,14 +27,14 @@ mongoose
   });
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -53,4 +55,4 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-module.exports = app;
+//export app;

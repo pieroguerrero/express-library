@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema;
+import { Schema, model } from "mongoose";
 
 const BookInstanceSchema = new Schema({
   book: { type: Schema.Types.ObjectId, ref: "Book", required: true }, // reference to the associated book
@@ -20,4 +18,4 @@ BookInstanceSchema.virtual("url").get(function () {
   return `/catalog/bookinstance/${this._id}`;
 });
 
-module.exports = mongoose.model("BookInstance", BookInstanceSchema);
+export default model("BookInstance", BookInstanceSchema);
