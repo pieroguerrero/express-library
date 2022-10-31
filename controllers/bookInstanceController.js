@@ -1,5 +1,5 @@
 // Display list of all BookInstances.
-const bookInstance_list = (req, res) => {
+const bookinstance_list = (req, res) => {
   res.send("NOT IMPLEMENTED: BookInstance list");
 };
 
@@ -39,7 +39,7 @@ const bookinstance_update_post = (req, res) => {
 };
 
 export {
-  bookInstance_list,
+  bookinstance_list,
   bookinstance_detail,
   bookinstance_create_get,
   bookinstance_create_post,

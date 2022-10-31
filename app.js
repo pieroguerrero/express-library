@@ -7,6 +7,8 @@ import logger from "morgan";
 
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
+import { catalogRouter } from "./routes/catalog.js";
+//import { router } from "./routes/superCatalog.js";
 
 export const app = express();
 
@@ -38,6 +40,8 @@ app.use(express.static(join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/catalog", catalogRouter);
+//app.use("/catalog", router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
