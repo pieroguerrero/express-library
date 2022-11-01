@@ -1,8 +1,19 @@
-//import Author from "../models/author.js";
+import Author from "../models/author.js";
 
 //Display all authors
-const author_list = (req, res) => {
-  res.send("NOT IMPLEMENTED: Author list");
+const author_list = (req, res, next) => {
+  const findPromise = Author.find()
+    .sort([["family_name", "ascending"]])
+    .exec();
+
+  findPromise
+    .then((result) => {
+      res.render("author_list", {
+        title: "Author List",
+        author_list: result,
+      });
+    })
+    .catch((error) => next(error));
 };
 
 // Display Author create form on GET.

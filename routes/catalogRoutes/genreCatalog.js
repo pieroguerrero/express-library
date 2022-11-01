@@ -31,10 +31,10 @@ router.get("/:id/update", genre_update_get);
 // POST request to update Genre.
 router.post("/:id/update", genre_update_post);
 
-// GET request for one Genre.
-router.get("/:id", genre_detail);
-
 // GET request for list of all Genre.
 router.get("/all", genre_list);
+
+// GET request for one Genre.
+router.get("/:id", genre_detail);
 
 export { router as genreCatalogRouter };

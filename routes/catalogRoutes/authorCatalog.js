@@ -30,10 +30,10 @@ router.get("/:id/update", author_update_get);
 // POST request to update Author.
 router.post("/:id/update", author_update_post);
 
-// GET request for one Author.
-router.get("/:id", author_detail);
-
 // GET request for list of all Authors.
 router.get("/all", author_list);
+
+// GET request for one Author.
+router.get("/:id", author_detail);
 
 export { router as authorCatalogRouter };
