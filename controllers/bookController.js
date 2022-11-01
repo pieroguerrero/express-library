@@ -1,12 +1,62 @@
-//const Book = require("../models/book");
+import Book from "../models/book.js";
+import Author from "../models/author.js";
+import BookInstance from "../models/bookinstance.js";
+import Genre from "../models/genre.js";
 
 const index = (req, res) => {
-  res.send("NOT IMPLEMENTED: Site Home Page");
+  //res.send("NOT IMPLEMENTED: Site Home Page");
+
+  const allPromises = Promise.all([
+    Book.countDocuments({}).exec(),
+    BookInstance.countDocuments({}).exec(),
+    BookInstance.countDocuments({ status: "Available" }).exec(),
+    Author.countDocuments({}).exec(),
+    Genre.countDocuments({}).exec(),
+  ]);
+
+  allPromises
+    .then((responses) => {
+      res.render("index", {
+        title: "Local Library Home",
+        error: null,
+        data: {
+          // @ts-ignore
+          book_count: responses[0],
+          // @ts-ignore
+          book_instance_count: responses[1],
+          // @ts-ignore
+          book_instance_available_count: responses[2],
+          // @ts-ignore
+          author_count: responses[3],
+          // @ts-ignore
+          genre_count: responses[4],
+        },
+      });
+    })
+    .catch((error) => {
+      res.render("index", {
+        title: "Local Library Home",
+        error: error,
+        data: {},
+      });
+    });
 };
 
 // Display list of all books.
-const book_list = (req, res) => {
-  res.send("NOT IMPLEMENTED: Book list");
+const book_list = (req, res, next) => {
+  const findPromise = Book.find({}, "title author")
+    .sort({ title: 1 })
+    .populate("author")
+    .exec();
+
+  findPromise
+    .then((result) => {
+      res.render("book_list", { title: "Book List", book_list: result });
+    })
+    .catch((error) => {
+      console.error(error);
+      next(error);
+    });
 };
 
 // Display detail page for a specific book.

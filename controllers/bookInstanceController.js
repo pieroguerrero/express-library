@@ -1,6 +1,18 @@
 // Display list of all BookInstances.
-const bookinstance_list = (req, res) => {
-  res.send("NOT IMPLEMENTED: BookInstance list");
+
+import BookInstance from "../models/bookinstance.js";
+
+const bookinstance_list = (req, res, next) => {
+  const findPromise = BookInstance.find().populate("book").exec();
+
+  findPromise
+    .then((result) => {
+      res.render("bookinstance_list", {
+        title: "Book Instance List",
+        bookinstance_list: result,
+      });
+    })
+    .catch((error) => next(error));
 };
 
 // Display detail page for a specific BookInstance.

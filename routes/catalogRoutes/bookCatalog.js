@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  index,
+  //index,
   book_list,
   book_detail,
   book_create_get,
@@ -14,7 +14,9 @@ import {
 const router = Router();
 
 // GET catalog home page.
-router.get("/", index);
+router.get("/", function (req, res) {
+  res.redirect("./");
+});
 
 // GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
 router.get("/create", book_create_get);
@@ -34,10 +36,10 @@ router.get("/:id/update", book_update_get);
 // POST request to update Book.
 router.post("/:id/update", book_update_post);
 
-// GET request for one Book.
-router.get("/:id", book_detail);
-
 // GET request for list of all Book items.
 router.get("/all", book_list);
+
+// GET request for one Book.
+router.get("/:id", book_detail);
 
 export { router as bookCatalogRouter };

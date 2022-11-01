@@ -30,10 +30,10 @@ router.get("/:id/update", bookinstance_update_get);
 // POST request to update BookInstance.
 router.post("/:id/update", bookinstance_update_post);
 
-// GET request for one BookInstance.
-router.get("/:id", bookinstance_detail);
-
 // GET request for list of all BookInstance.
 router.get("/all", bookinstance_list);
+
+// GET request for one BookInstance.
+router.get("/:id", bookinstance_detail);
 
 export { router as bookInstanceCatalogRouter };
