@@ -1,4 +1,6 @@
+import { nextDay } from "date-fns";
 import Author from "../models/author.js";
+import Book from "../models/book.js";
 
 //Display all authors
 const author_list = (req, res, next) => {
@@ -22,8 +24,29 @@ const author_create_get = (req, res) => {
 };
 
 // Display detail page for a specific Author.
-const author_detail = (req, res) => {
-  res.send(`NOT IMPLEMENTED: Author detail: ${req.params.id}`);
+const author_detail = (req, res, next) => {
+  const authorPromise = Author.findById(req.params.id).exec();
+
+  authorPromise
+    .then((author) => {
+      if (!author) {
+        const err = new Error("Author not found");
+        return next(err);
+      }
+
+      const booksPromise = Book.find({ author: req.params.id }).exec();
+
+      booksPromise
+        .then((books) => {
+          res.render("author_detail", {
+            title: "Author Detail",
+            author: author,
+            author_books: books,
+          });
+        })
+        .catch((error) => next(error));
+    })
+    .catch((error) => next(error));
 };
 
 // Handle Author create on POST.

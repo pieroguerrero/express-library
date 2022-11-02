@@ -60,8 +60,34 @@ const book_list = (req, res, next) => {
 };
 
 // Display detail page for a specific book.
-const book_detail = (req, res) => {
-  res.send(`NOT IMPLEMENTED: Book detail: ${req.params.id}`);
+const book_detail = (req, res, next) => {
+  const findBookPromise = Book.findById(req.params.id)
+    .populate("author")
+    .populate("genre")
+    .exec();
+
+  findBookPromise
+    .then((bookResult) => {
+      if (!bookResult) {
+        const err = new Error("Book not found");
+        return next(err);
+      }
+
+      const findBookInstancePromise = BookInstance.find({
+        book: req.params.id,
+      }).exec();
+
+      findBookInstancePromise
+        .then((bookInstanceResult) => {
+          res.render("book_detail", {
+            title: bookResult.title,
+            book: bookResult,
+            book_instances: bookInstanceResult,
+          });
+        })
+        .catch((error) => next(error));
+    })
+    .catch((error) => next(error));
 };
 
 // Display book create form on GET.
