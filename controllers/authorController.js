@@ -109,13 +109,57 @@ const author_create_post = [
 ];
 
 // Display Author delete form on GET.
-const author_delete_get = (req, res) => {
-  res.send("NOT IMPLEMENTED: Author delete GET");
+const author_delete_get = (req, res, next) => {
+  const deleteGetPromise = Promise.all([
+    Author.findById(req.params.id).exec(),
+    Book.find({ author: req.params.id }).exec(),
+  ]);
+
+  deleteGetPromise
+    .then((results) => {
+      if (!results[0]) {
+        return res.redirect("/catalog/authors/all");
+      }
+
+      // Successful, so render.
+      res.render("author_delete", {
+        title: "Delete Author",
+        author: results[0],
+        author_books: results[1],
+      });
+    })
+    .catch((err) => next(err));
 };
 
 // Handle Author delete on POST.
-const author_delete_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Author delete POST");
+const author_delete_post = (req, res, next) => {
+  const deletePostPromise = Promise.all([
+    Author.findById(req.body.authorid).exec(),
+    Book.find({ author: req.body.authorid }).exec(),
+  ]);
+
+  deletePostPromise
+    .then((results) => {
+      if (results[1].length > 0) {
+        return res.render("author_delete", {
+          title: "Delete Author",
+          author: results[0],
+          author_books: results[1],
+        });
+      }
+      // Author has no books. Delete object and redirect to the list of authors.
+      const deletePromise = Author.deleteOne({ _id: req.body.authorid }).exec();
+
+      deletePromise
+        .then((result) => {
+          if (result.deletedCount === 1) {
+            // Success - go to author list
+            res.redirect("/catalog/authors/all");
+          }
+        })
+        .catch((err) => next(err));
+    })
+    .catch((err) => next(err));
 };
 
 // Display Author update form on GET.
