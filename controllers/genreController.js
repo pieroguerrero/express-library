@@ -1,6 +1,6 @@
-import Genre from "../models/genre.js";
-import Book from "../models/book.js";
 import { body, validationResult } from "express-validator";
+import Book from "../models/book.js";
+import Genre from "../models/genre.js";
 
 // Display list of all Genre.
 const genre_list = (req, res, next) => {
