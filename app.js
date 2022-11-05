@@ -1,21 +1,26 @@
 /* eslint-disable no-unused-vars */
-import createError from "http-errors";
-import express from "express";
-import { join } from "path";
 import cookieParser from "cookie-parser";
+import express from "express";
+import helmet from "helmet";
+import createError from "http-errors";
 import logger from "morgan";
+import { join } from "path";
 
+import mongoose from "mongoose";
+import { fileURLToPath } from "url";
+import { catalogRouter } from "./routes/catalog.js";
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
-import { catalogRouter } from "./routes/catalog.js";
 //import { router } from "./routes/superCatalog.js";
 
 export const app = express();
+app.use(helmet());
 
-const __dirname = new URL(".", import.meta.url).pathname;
+//const __dirname = new URL(".", import.meta.url).pathname.substring(1);
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // Set up mongoose connection
-import mongoose from "mongoose";
+
 const mongoDB =
   "mongodb+srv://library:sa1DgfsfbfCANa2s@cluster0.lnchkji.mongodb.net/?retryWrites=true&w=majority";
 

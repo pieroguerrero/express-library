@@ -1,6 +1,8 @@
 import { body, validationResult } from "express-validator";
 import BookInstance from "../models/bookinstance.js";
 import Book from "../models/book.js";
+import Debug from "debug";
+const debug = Debug("book-instance-controller");
 
 // Display list of all BookInstances.
 const bookinstance_list = (req, res, next) => {
@@ -18,6 +20,7 @@ const bookinstance_list = (req, res, next) => {
 
 // Display detail page for a specific BookInstance.
 const bookinstance_detail = (req, res, next) => {
+  debug("book instance detail " + req.params.id + " was seen");
   const bookInstancePromise = BookInstance.findById(req.params.id)
     .populate("book")
     .exec();
