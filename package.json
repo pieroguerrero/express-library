@@ -2,6 +2,9 @@
   "name": "express-library",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "18.12.1"
+  },
   "type": "module",
   "scripts": {
     "start": "node ./bin/www",
@@ -14,6 +17,7 @@
     "cookie-parser": "~1.4.4",
     "date-fns": "^2.29.3",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "express-validator": "^6.14.2",
     "helmet": "^6.0.0",

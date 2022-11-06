@@ -11,6 +11,9 @@ import { fileURLToPath } from "url";
 import { catalogRouter } from "./routes/catalog.js";
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 //import { router } from "./routes/superCatalog.js";
 
 export const app = express();
@@ -21,16 +24,17 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // Set up mongoose connection
 
-const mongoDB =
-  "mongodb+srv://library:sa1DgfsfbfCANa2s@cluster0.lnchkji.mongodb.net/?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_URI;
+console.log("mongoDB connection string:", mongoDB);
 
 mongoose
+  // @ts-ignore
   .connect(mongoDB)
   .then((response) => {
     const db = mongoose.connection;
   })
   .catch((err) => {
-    console.error.bind(console, "MongoDB connection error:");
+    console.error.bind(console, "MongoDB connection error:", err);
   });
 
 // view engine setup
