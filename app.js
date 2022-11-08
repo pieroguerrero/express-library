@@ -21,6 +21,7 @@ app.use(helmet());
 
 //const __dirname = new URL(".", import.meta.url).pathname.substring(1);
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
+console.log("__dirname:", __dirname);
 
 // Set up mongoose connection
 

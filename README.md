@@ -1,38 +1,65 @@
-## About
+# Express Library
 
-This project was created with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript).
+> Fully responsive LinkedIn clone MVP.
+> Live demo [_here_](https://library.up.railway.app/).
 
+## Table of Contents
 
-## Available Scripts
+- [General Info](#general-information)
+- [Technologies used](#technologies-used)
+- [Features](#features)
+- [Setup](#setup)
+- [Project Status](#project-status)
+- [Room for Improvement](#room-for-improvement)
 
-### `npm run dev`
+## General Information
 
-Run the server in development mode.
+- Basic Library tool generated 100% from backend with Pug templates.
+- The objective of this project is to test the Pug template engine to code HTML.
 
-### `npm test`
+## Technologies used
 
-Run all unit-tests with hot-reloading.
+### This web uses 100% Back-end technologies:
 
-### `npm test -- --testFile="name of test file" (i.e. --testFile=Users).`
+- NodeJS's Express framework.
+- Pug Html tempalte engine.
+- Express-validator to validate user inputs
+- HelmetJS and Dotenv for security.
+- Vanilla CSS.
+- MongoDB.
+- Mongoose.
+- The app was deployed in Railway.app
 
-Run a single unit-test.
+## Features
 
-### `npm run test:no-reloading`
+- Create, Update and Delete Books, Book instances, Authors and Book Genres.
+- List all the entities.
 
-Run all unit-tests without hot-reloading.
+## Setup
 
-### `npm run lint`
+Clone this project by doing:
 
-Check for linting errors.
+```
+$ git clone https://github.com/pieroguerrero/express-library.git
+```
 
-### `npm run build`
+Then go to the folder you cloned the code and execute:
 
-Build the project for production.
+```
+$ npm install
+```
 
-### `npm start`
+**WARNING:** If you are going to use other libraries to achieve other purposes be carefull and remove the caret (^) prefix that the dependency versions have.
 
-Run the production build (Must be built first).
+## Project Status
 
-### `npm start -- --env="name of env file" (default is production).`
+Project is: _in complete_
+This project was for testing purposes only.
 
-Run production build with a different env file.
+## Room for Improvement
+
+There are always room for improvement, in this project so far the thinkgs that can be improved are:
+
+- Authentication.
+- Testing.
+- More UI design.
