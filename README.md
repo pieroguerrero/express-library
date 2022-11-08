@@ -1,6 +1,6 @@
 # Express Library
 
-> Fully responsive LinkedIn clone MVP.
+> Library store for testing purposes only.
 > Live demo [_here_](https://library.up.railway.app/).
 
 ## Table of Contents
